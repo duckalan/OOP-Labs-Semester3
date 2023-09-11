@@ -1,31 +1,30 @@
-#include "String.h"
+п»ї#include "String.h"
 
 void String::InitByCharArray(const char* str)
 {
-	_length = strlen(str);
+	length_ = strlen(str);
 
-	// _length + 1, т.к. strlen не считает символ '\0'
-	_internalChars = CopyCharArray(str, _length + 1ul);
+	// _length + 1, С‚.Рє. strlen РЅРµ СЃС‡РёС‚Р°РµС‚ СЃРёРјРІРѕР» '\0'
+	internalChars_ = CopyCharArray(str, length_ + 1);
 }
 
 void String::InitByString(const String& string)
 {
-	_length = string.GetLength();
+	length_ = string.length_;
 
-	// _length + 1, т.к. строка хранит длину без учёта символа '\0'
-	_internalChars = CopyCharArray(string.ToCharArray(), _length + 1ul);
+	// _length + 1, С‚.Рє. СЃС‚СЂРѕРєР° С…СЂР°РЅРёС‚ РґР»РёРЅСѓ Р±РµР· СѓС‡С‘С‚Р° СЃРёРјРІРѕР»Р° '\0'
+	internalChars_ = CopyCharArray(string.internalChars_, length_ + 1);
 }
 
-char* String::CopyCharArray(const char* arrayToCopy, int arrayLength) const
+char* String::CopyCharArray(const char* arrayToCopy, size_t arrayLength) const
 {
 	char* temp = new char[arrayLength] {};
 	strcpy_s(temp, arrayLength, arrayToCopy);
 	return temp;
 }
 
-String::String()
-{
-}
+String::String() : length_(0),
+				   internalChars_(nullptr) {}
 
 String::String(const char* str)
 {
@@ -39,20 +38,7 @@ String::String(const String& other)
 
 String::~String()
 {
-	if (_internalChars != nullptr)
-	{
-		delete[] _internalChars;
-	}
-}
-
-size_t String::GetLength() const
-{
-	return _length;
-}
-
-const char* String::ToCharArray() const
-{
-	return _internalChars;
+	delete[] internalChars_;
 }
 
 String String::operator=(const char* str)
@@ -69,25 +55,23 @@ String String::operator=(const String& other)
 
 String String::operator+(const String& other) const
 {
-	// + 1, т.к. длины строк не учитывают символ '\0'
-	int resultLength = _length + other.GetLength() + 1ul;
+	// + 1, С‚.Рє. РґР»РёРЅС‹ СЃС‚СЂРѕРє РЅРµ СѓС‡РёС‚С‹РІР°СЋС‚ СЃРёРјРІРѕР» '\0'
+	size_t resultLength = length_ + other.length_ + 1;
 
-	char* result = CopyCharArray(_internalChars, resultLength);
-	strcat_s(result, resultLength, other.ToCharArray());
+	char* result = CopyCharArray(internalChars_, resultLength);
+	strcat_s(result, resultLength, other.internalChars_);
 
 	return String(result);
 }
 
 bool String::operator==(const String& other) const
 {
-	if (_length != other.GetLength())
+	if (length_ != other.length_)
 	{
 		return false;
 	}
 
-	auto otherCharArray = other.ToCharArray();
-
-	if (strcmp(_internalChars, otherCharArray) != 0)
+	if (strcmp(internalChars_, other.internalChars_) != 0)
 	{
 		return false;
 	}
@@ -102,7 +86,14 @@ bool String::operator!=(const String& other) const
 
 std::ostream& operator<<(std::ostream& ostream, String& str)
 {
-	std::cout << str.ToCharArray();
+	std::cout << str.internalChars_;
+
+	return ostream;
+}
+
+std::ostream& operator<<(std::ostream& ostream, String&& str)
+{
+	std::cout << str.internalChars_;
 
 	return ostream;
 }
