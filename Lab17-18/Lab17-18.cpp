@@ -1,8 +1,21 @@
-п»ї#include "String.h"
+#include "String.h"
 #include "Matrix.h"
+#include <windows.h>
+#include <fcntl.h>
+#include <io.h>
 
 int main()
 {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    String s1("Строка1");
+    String s2 = "Строка2";
+
+    std::cout << s1 << " " << s2 << '\n';
+    std::cout << s1 << " == " << s2 << " = " << (s1 == s2) << '\n';
+    std::cout << s1 << " + " << s2 << " = " << (s1 + s2) << '\n';
+
     const size_t rowsCount = 4;
     const size_t colsCount = 4;
 
