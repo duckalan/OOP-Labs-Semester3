@@ -1,12 +1,16 @@
 #include <iostream>
 
-#include "LogicalElement.h"
+#include "Memory.h"
 
 int main()
 {
-    auto a = LogicalElement::OutputCount;
-    LogicalElement el("A", 1);
-    LogicalElement el2(el);
+    Memory mem("Dtr");
 
+    mem.SetInputValues(1, 0, 0, 0);
+    mem.CalculateState();
+
+    mem.SetInputValues(0, 1, 1, 0);
+    mem.CalculateState();
+    
     system("pause");
 }

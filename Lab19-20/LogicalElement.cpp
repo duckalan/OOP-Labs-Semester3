@@ -19,16 +19,10 @@ void LogicalElement::SetInputValues(std::vector<bool> inputValues)
 
 bool LogicalElement::CheckInput(uint32_t index) const
 {
-	if (index >= inputValues_.size())
-	{
-		std::string errorMessage = std::format("Индекс {} выходит за границы массива входов", index);
-		throw std::exception(errorMessage.c_str());
-	}
-
 	return inputValues_[index];
 }
 
-bool LogicalElement::CalculateOutput() const
+bool LogicalElement::CalculateOutput() const noexcept
 {
 	bool result = true;
 

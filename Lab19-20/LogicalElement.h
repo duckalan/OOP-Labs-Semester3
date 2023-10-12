@@ -19,6 +19,6 @@ public:
 
 	bool CheckInput(uint32_t index) const;
 
-	bool CalculateOutput() const;
+	bool CalculateOutput() const noexcept;
 };
 
