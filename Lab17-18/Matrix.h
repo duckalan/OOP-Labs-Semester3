@@ -58,20 +58,24 @@ public:
 	Matrix operator *(const Matrix& other) const;
 	Matrix operator /(const Matrix& other) const;
 	
-	Matrix operator *(int scalar) const;
-	Matrix operator /(int scalar) const;
+	Matrix operator *(float scalar) const;
+	Matrix operator /(float scalar) const;
 
 	Matrix& operator +=(const Matrix& other);
 	Matrix& operator -=(const Matrix& other);
 	Matrix& operator *=(const Matrix& other);
 	Matrix& operator /=(const Matrix& other);
 
-	Matrix& operator *=(int scalar);
-	Matrix& operator /=(int scalar);
+	Matrix& operator *=(float scalar);
+	Matrix& operator /=(float scalar);
 
 	bool operator ==(const Matrix& other) const;
 	bool operator !=(const Matrix& other) const;
 
 	float operator ()(size_t rowIndex, size_t colIndex) const;
 	float& operator ()(size_t rowIndex, size_t colIndex);
+
+	Matrix operator !() const;
+	Matrix operator &(const Matrix& other) const;
+	Matrix operator %(int rem) const;
 };

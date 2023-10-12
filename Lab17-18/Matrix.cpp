@@ -178,7 +178,7 @@ Matrix Matrix::operator/(const Matrix& other) const
 }
 
 
-Matrix Matrix::operator*(int scalar) const
+Matrix Matrix::operator*(float scalar) const
 {
 	return CreateMatrixWithOperation([scalar](float cell)
 		{
@@ -186,7 +186,7 @@ Matrix Matrix::operator*(int scalar) const
 		});
 }
 
-Matrix Matrix::operator/(int scalar) const
+Matrix Matrix::operator/(float scalar) const
 {
 	return CreateMatrixWithOperation([scalar](float cell)
 		{
@@ -220,13 +220,13 @@ Matrix& Matrix::operator/=(const Matrix& other)
 }
 
 
-Matrix& Matrix::operator*=(int scalar)
+Matrix& Matrix::operator*=(float scalar)
 {
 	*this = *this * scalar;
 	return *this;
 }
 
-Matrix& Matrix::operator/=(int scalar)
+Matrix& Matrix::operator/=(float scalar)
 {
 	*this = *this / scalar;
 	return *this;
@@ -262,4 +262,35 @@ float Matrix::operator ()(size_t rowIndex, size_t colIndex) const
 float& Matrix::operator ()(size_t rowIndex, size_t colIndex) 
 {
 	return cells_[rowIndex][colIndex];
+}
+
+Matrix Matrix::operator!() const
+{
+	Matrix result(rowsCount_, colsCount_);
+
+	for (size_t i = 0; i < rowsCount_; i++)
+	{
+		for (size_t j = 0; j < colsCount_; j++)
+		{
+			result.cells_[i][j] = cells_[j][i];
+		}
+	}
+
+	return result;
+}
+
+Matrix Matrix::operator&(const Matrix& other) const
+{
+	return CreateMatrixWithOperation(other, [](float cell1, float cell2)
+		{
+			return cell1 * cell2;
+		});
+}
+
+Matrix Matrix::operator%(int rem) const
+{
+	return CreateMatrixWithOperation([rem](float cell)
+		{
+			return (int)cell % rem;
+		});
 }
