@@ -1,13 +1,20 @@
 #include "Element.h"
 
-Element::Element(std::string name, uint32_t inputCount, uint32_t outputCount) noexcept
-	: name_(std::move(name)),
-	  inputCount_(inputCount),
-	  outputCount_(outputCount)
+Element::Element(const char* name, uint32_t inputCount, uint32_t outputCount)
+	: inputCount_(inputCount), outputCount_(outputCount)
 {
+	name_ = new char[strlen(name) + 1];
+	strcpy(name_, name);
 }
 
-void Element::SetName(std::string name) noexcept
+Element::~Element()
 {
-	name_ = std::move(name);
+	delete[] name_;
+}
+
+void Element::SetName(const char* name)
+{
+	delete[] name_;
+	name_ = new char[strlen(name + 1)];
+	strcpy(name_, name);
 }

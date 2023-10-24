@@ -1,25 +1,35 @@
-#pragma once
+﻿#pragma once
 
-#include <array>
+#include "Element.h"
 #include "Memory.h"
 
-class Register
+// Отчёт по перегрузке взять
+class Register : Element
 {
 public:
-	static const int MemoryWidth = 10;
+	static const int MemorySize = 10;
+	static const int InputCount = MemorySize * Memory::InputCount;
+	static const int OutputCount = MemorySize * Memory::OutputCount;
 
 private:
-	bool resetInput_;
+	bool resetInput_ = 0;
+	bool setInput_ = 0;
 
-	bool setInput_;
-
-	std::array<Memory, MemoryWidth> memory_;
-
-	std::array<int, Memory::InputCount * MemoryWidth> inputValues_;
+	Memory triggers_[MemorySize]{};
+	int inputValues_[MemorySize][Memory::InputCount]{};
 
 public:
-	Register(std::string name);
+	Register(const char* name);
 
-	void SetInputValues(std::array<int, Memory::InputCount* MemoryWidth> inputValues);
+	/// <summary>
+	/// В следующем порядке: R - сброс, D - информационный вход 
+	/// C - синхронизация S - установка значения.
+	/// Для каждого из десяти триггеров
+	/// </summary>
+	void SetInputValues(int** inputValues);
+
+	bool CheckStraightOutput(int triggerIndex) const;
+
+	void CalculateState();
 };
 

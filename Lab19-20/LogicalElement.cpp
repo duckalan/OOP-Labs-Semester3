@@ -1,20 +1,20 @@
 #include <format>
 #include "LogicalElement.h"
 
-LogicalElement::LogicalElement(std::string name, uint32_t inputCount) noexcept
+LogicalElement::LogicalElement(const char* name, uint32_t inputCount)
 	: Element(name, inputCount, OutputCount)
 {
-	inputValues_ = std::vector<bool>(inputCount);
+	inputValues_ = new bool[inputCount];
 }
 
-void LogicalElement::SetInputValues(std::vector<bool> inputValues)
+LogicalElement::~LogicalElement()
 {
-	if (inputValues.size() != inputCount_)
-	{
-		throw std::exception("Заданное при создании число и переданное число входов не совпадают");
-	}
+	delete[] inputValues_;
+}
 
-	inputValues_ = std::move(inputValues);
+void LogicalElement::SetInputValues(bool* inputValues)
+{
+	memcpy(inputValues_, inputValues, inputCount_ * sizeof(bool));
 }
 
 bool LogicalElement::CheckInput(uint32_t index) const
@@ -22,13 +22,13 @@ bool LogicalElement::CheckInput(uint32_t index) const
 	return inputValues_[index];
 }
 
-bool LogicalElement::CalculateOutput() const noexcept
+bool LogicalElement::CalculateOutput() const
 {
 	bool result = true;
 
-	for (bool input : inputValues_)
+	for (size_t i = 0; i < inputCount_; i++)
 	{
-		result &= input;
+		result &= inputValues_[i];
 	}
 
 	return result;

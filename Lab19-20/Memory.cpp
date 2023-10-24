@@ -1,15 +1,16 @@
-#include "Memory.h"
+﻿#include "Memory.h"
 
-Memory::Memory(std::string name) noexcept
-	: Element(name, InputCount, OutputCount)
+Memory::Memory()
+	: Element("", InputCount, OutputCount)
 {
-	inputValues_ = std::array<bool, InputCount>();
-	straightOutput_ = false;
-	inversedOutput_ = true;
-	oldC_ = 0;
 }
 
-void Memory::SetInputValues(uint32_t r, uint32_t d, uint32_t c, uint32_t s) noexcept
+Memory::Memory(const char* name)
+	: Element(name, InputCount, OutputCount)
+{
+}
+
+void Memory::SetInputValues(int r, int d, int c, int s)
 {
 	oldC_ = inputValues_[IndexC];
 
@@ -19,24 +20,29 @@ void Memory::SetInputValues(uint32_t r, uint32_t d, uint32_t c, uint32_t s) noex
 	inputValues_[IndexS] = s;
 }
 
-bool Memory::GetStraightOutput() const noexcept
+bool Memory::GetStraightOutput() const
 {
 	return straightOutput_;
 }
 
-bool Memory::GetInversedOutput() const noexcept
+bool Memory::GetInversedOutput() const
 {
 	return inversedOutput_;
 }
 
 bool Memory::CheckInput(uint32_t index) const
 {
+	if (index >= InputCount)
+	{
+		throw std::exception("Индекс выходит за границы массива");
+	}
+
 	return inputValues_[index];
 }
 
-void Memory::CalculateState() noexcept
+void Memory::CalculateState()
 {
-	if ((inputValues_[IndexS] == 0 && inputValues_[IndexR] == 0) 
+	if ((inputValues_[IndexS] == 0 && inputValues_[IndexR] == 0)
 		&& oldC_ == 0 && inputValues_[IndexC] == 1)
 	{
 		straightOutput_ = inputValues_[IndexD];

@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #include <array>
 #include "Element.h"
@@ -10,48 +10,50 @@ public:
 	static const uint32_t OutputCount = 2;
 
 	/// <summary>
-	/// Индекс входа сброса.
+	/// РРЅРґРµРєСЃ РІС…РѕРґР° СЃР±СЂРѕСЃР°.
 	/// </summary>
 	static const uint32_t IndexR = 0;
 
 	/// <summary>
-	/// Индекс информационного входа.
+	/// РРЅРґРµРєСЃ РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕРіРѕ РІС…РѕРґР°.
 	/// </summary>
 	static const uint32_t IndexD = 1;
 
 	/// <summary>
-	/// Индекс синхронизирующего входа.
+	/// РРЅРґРµРєСЃ СЃРёРЅС…СЂРѕРЅРёР·РёСЂСѓСЋС‰РµРіРѕ РІС…РѕРґР°.
 	/// </summary>
 	static const uint32_t IndexC = 2;
 
 	/// <summary>
-	/// Индекс входа установки значения.
+	/// РРЅРґРµРєСЃ РІС…РѕРґР° СѓСЃС‚Р°РЅРѕРІРєРё Р·РЅР°С‡РµРЅРёСЏ.
 	/// </summary>
 	static const uint32_t IndexS = 3;
 
 private:
-	std::array<bool, InputCount> inputValues_;
+	bool inputValues_[InputCount] {};
 
-	bool oldC_;
-	bool straightOutput_;
-	bool inversedOutput_;
+	bool oldC_ = 0;
+	bool straightOutput_ = 0;
+	bool inversedOutput_ = 1;
 
 public:
-	Memory(std::string name) noexcept;
+	Memory();
+
+	Memory(const char* name);
 
 	/// <summary>
-	/// В следующем порядке: R - сброс, D - информационный вход 
-	/// C - синхронизация S - установка значения
+	/// Р’ СЃР»РµРґСѓСЋС‰РµРј РїРѕСЂСЏРґРєРµ: R - СЃР±СЂРѕСЃ, D - РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅС‹Р№ РІС…РѕРґ 
+	/// C - СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ S - СѓСЃС‚Р°РЅРѕРІРєР° Р·РЅР°С‡РµРЅРёСЏ
 	/// </summary>
-	void SetInputValues(uint32_t r, uint32_t d, uint32_t c, uint32_t s) noexcept;
+	void SetInputValues(int r, int d, int c, int s);
 
-	bool GetStraightOutput() const noexcept;
+	bool GetStraightOutput() const;
 
-	bool GetInversedOutput() const noexcept;
+	bool GetInversedOutput() const;
 
 	bool CheckInput(uint32_t index) const;
 
-	void CalculateState() noexcept;
+	void CalculateState();
 
 	bool operator ==(const Memory& other) const;
 };

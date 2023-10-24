@@ -3,22 +3,21 @@
 #include <vector>
 #include "Element.h"
 
-const uint32_t OutputCount = 1;
-
 class LogicalElement : public Element
 {
 private:
-	std::vector<bool> inputValues_;
+	bool* inputValues_;
 
 public:
 	static const uint32_t OutputCount = 1;
 
-	LogicalElement(std::string name, uint32_t inputCount) noexcept;
+	LogicalElement(const char* name, uint32_t inputCount);
+	~LogicalElement();
 	
-	void SetInputValues(std::vector<bool> inputValues);
+	void SetInputValues(bool* inputValues);
 
 	bool CheckInput(uint32_t index) const;
 
-	bool CalculateOutput() const noexcept;
+	bool CalculateOutput() const;
 };
 
