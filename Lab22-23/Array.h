@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #define CRT_USE_NO_WARNINGS
 
 #include <iostream>
@@ -16,7 +16,7 @@ public:
 	{
 		if (list.size() != length) 
 		{
-			throw std::exception("Границы векторов не совпадают");
+			throw std::exception("Р“СЂР°РЅРёС†С‹ РІРµРєС‚РѕСЂРѕРІ РЅРµ СЃРѕРІРїР°РґР°СЋС‚");
 		}
 
 		std::copy(list.begin(), list.end(), array_);
@@ -25,7 +25,7 @@ public:
 	{
 		if (otherLength != length)
 		{
-			throw std::exception("Размеры векторов не совпадают");
+			throw std::exception("Р Р°Р·РјРµСЂС‹ РІРµРєС‚РѕСЂРѕРІ РЅРµ СЃРѕРІРїР°РґР°СЋС‚");
 		}
 
 		memcpy(array_, other, sizeof(IntType) * otherLength);
@@ -48,7 +48,7 @@ public:
 	{
 		if (index >= length)
 		{
-			throw std::exception("Индекс выходит за границы вектора");
+			throw std::exception("РРЅРґРµРєСЃ РІС‹С…РѕРґРёС‚ Р·Р° РіСЂР°РЅРёС†С‹ РІРµРєС‚РѕСЂР°");
 		}
 
 		std::cout << array_[index] << '\n';
@@ -107,7 +107,7 @@ public:
 	{
 		if (index >= length)
 		{
-			throw std::exception("Индекс выходит за границы вектора");
+			throw std::exception("РРЅРґРµРєСЃ РІС‹С…РѕРґРёС‚ Р·Р° РіСЂР°РЅРёС†С‹ РІРµРєС‚РѕСЂР°");
 		}
 
 		return array_[index];
@@ -116,7 +116,7 @@ public:
 	{
 		if (index >= length)
 		{
-			throw std::exception("Индекс выходит за границы вектора");
+			throw std::exception("РРЅРґРµРєСЃ РІС‹С…РѕРґРёС‚ Р·Р° РіСЂР°РЅРёС†С‹ РІРµРєС‚РѕСЂР°");
 		}
 
 		return array_[index];
