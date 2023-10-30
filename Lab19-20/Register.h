@@ -28,6 +28,8 @@ public:
 	/// </summary>
 	void SetInputValues(int** inputValues);
 
+	void SetTriggersState(bool* states);
+
 	bool CheckStraightOutput(int triggerIndex) const;
 
 	void CalculateState();

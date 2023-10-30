@@ -55,6 +55,14 @@ void Register::SetInputValues(int** inputValues)
 	}
 }
 
+void Register::SetTriggersState(bool* states)
+{
+	for (size_t i = 0; i < MemorySize; i++)
+	{
+		triggers_[i].SetState(states[i]);
+	}
+}
+
 bool Register::CheckStraightOutput(int triggerIndex) const
 {
 	return triggers_[triggerIndex].GetStraightOutput();

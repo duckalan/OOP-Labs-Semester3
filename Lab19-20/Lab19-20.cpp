@@ -1,7 +1,4 @@
-﻿#include <windows.h>
-#include <fcntl.h>
-#include <io.h>
-#include <iostream>
+﻿#include <iostream>
 
 #include "LogicalElement.h"
 #include "Memory.h"
@@ -47,8 +44,24 @@ void WorkWithRegister()
 {
     Register reg("Reg");
 
+    bool* states = new bool[Register::MemorySize];
+    std::cout << "Введите состояния триггеров (10 чисел):\n";
+    for (size_t i = 0; i < Register::MemorySize; i++)
+    {
+        std::cin >> states[i];
+    }
+    reg.SetTriggersState(states);
+
+    std::cout << "Изначальное состояние триггера: ";
+    for (size_t i = 0; i < Register::MemorySize; i++)
+    {
+        std::cout << reg.CheckStraightOutput(i);
+    }
+    std::cout << '\n';
+
     /*
-        1,0,0,0,  1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,0,
+        У первых двух устанавливается 1, остальные сбрасываются
+        0,1,1,0,  0,1,1,0, 1,0,0,0, 1,0,0,0, 1,0,0,0,
         1,0,0,0,  1,0,0,0, 1,0,0,0, 1,0,0,0, 1,0,0,0
     */
     int** testInput = new int* [Register::MemorySize];
@@ -60,21 +73,6 @@ void WorkWithRegister()
         testInput[i][2] = 0;
         testInput[i][3] = 0;
     }
-
-    reg.SetInputValues(testInput);
-    reg.CalculateState();
-
-    std::cout << "Изначальное состояние триггера: ";
-    for (size_t i = 0; i < Register::MemorySize; i++)
-    {
-        std::cout << reg.CheckStraightOutput(i);
-    }
-    std::cout << '\n';
-
-    /*
-        0,1,1,0,  0,1,1,0, 1,0,0,0, 1,0,0,0, 1,0,0,0,
-        1,0,0,0,  1,0,0,0, 1,0,0,0, 1,0,0,0, 0,0,0,0
-    */
     testInput[0][0] = 0;
     testInput[0][1] = 1;
     testInput[0][2] = 1;
@@ -100,14 +98,11 @@ void WorkWithRegister()
         delete[] testInput[i];
     }
     delete[] testInput;
+    delete[] states;
 }
 
 int main()
 {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
-
-
     //WorkWithLogicalElement();
     //WorkWithMemory();
     WorkWithRegister();

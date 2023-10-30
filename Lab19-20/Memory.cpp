@@ -1,4 +1,5 @@
 ﻿#include "Memory.h"
+#include <exception>
 
 Memory::Memory()
 	: Element("", InputCount, OutputCount)
@@ -18,6 +19,12 @@ void Memory::SetInputValues(int r, int d, int c, int s)
 	inputValues_[IndexD] = d;
 	inputValues_[IndexC] = c;
 	inputValues_[IndexS] = s;
+}
+
+void Memory::SetState(bool state)
+{
+	straightOutput_ = state;
+	inversedOutput_ = !state;
 }
 
 bool Memory::GetStraightOutput() const

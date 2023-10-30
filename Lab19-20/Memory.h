@@ -46,6 +46,8 @@ public:
 	/// </summary>
 	void SetInputValues(int r, int d, int c, int s);
 
+	void SetState(bool state);
+
 	bool GetStraightOutput() const;
 
 	bool GetInversedOutput() const;
