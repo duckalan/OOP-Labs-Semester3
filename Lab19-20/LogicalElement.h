@@ -1,6 +1,5 @@
 #pragma once
 
-#include <vector>
 #include "Element.h"
 
 class LogicalElement : public Element

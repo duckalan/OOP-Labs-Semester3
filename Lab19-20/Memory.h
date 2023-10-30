@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <array>
 #include "Element.h"
 
 class Memory : public Element

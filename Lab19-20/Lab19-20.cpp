@@ -9,22 +9,17 @@
 
 void WorkWithLogicalElement() 
 {
-    // Работа с логическим элементом
-    std::cout << "Введите количество входов: ";
-    int inputCount;
-    std::cin >> inputCount;
+    std::cout << "Введите значения четырёх входов (0 или 1): \n";
+    bool* input = new bool[4];
 
-    std::cout << "Введите значения входов (0 или 1): \n";
-    bool* input = new bool[inputCount];
-
-    for (size_t i = 0; i < inputCount; i++)
+    for (size_t i = 0; i < 4; i++)
     {
         bool tempInput;
         std::cin >> tempInput;
         input[i] = tempInput;
     }
 
-    LogicalElement le("AND", inputCount);
+    LogicalElement le("AND", 4);
     le.SetInputValues(input);
     std::cout << "Результат И = " << le.CalculateOutput() << '\n';
     delete[] input;
@@ -112,6 +107,9 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
+
+    //WorkWithLogicalElement();
+    //WorkWithMemory();
     WorkWithRegister();
     
     system("pause");

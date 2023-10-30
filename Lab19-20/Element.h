@@ -2,7 +2,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <cstdint>
-#include <string>
 
 class Element
 {
