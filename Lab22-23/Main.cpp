@@ -1,7 +1,4 @@
 ﻿#include <iostream>
-#include <windows.h>
-#include <fcntl.h>
-#include <io.h>
 #include "Array.h"
 
 using std::cout;
@@ -22,11 +19,13 @@ void PrintMenu()
 
 int main()
 {
-	SetConsoleCP(1251);
-	SetConsoleOutputCP(1251);
-
-	Array<int, 5> a1{ 5, 0, 3, 4, 6 };
-	Array<int, 5> a2{ 6, 2, 2, 1, 7 };
+	int a[5];
+	for (size_t i = 0; i < 5; i++)
+	{
+		cin >> a[i];
+	}
+	Array<int, 5> a1{ a[0], a[1], a[2], a[3], a[4]};
+	Array<int, 5> a2{ 5, 2, 3, 1, 9};
 
 	cout << "Исходные два массива: \n";
 	a1.PrintAll();
@@ -95,7 +94,7 @@ int main()
 		// умножение массивов на скаляр
 		case 5:
 		{
-			int scalar = 0;
+			double scalar = 0;
 			cout << "Введите скаляр того же типа, что и элементы массивов:\n";
 			cin >> scalar;
 			
@@ -108,7 +107,7 @@ int main()
 		// деление массивов на скаляр
 		case 6:
 		{
-			int scalar = 0;
+			double scalar = 0;
 			cout << "Введите скаляр того же типа, что и элементы массивов:\n";
 			cin >> scalar;
 
