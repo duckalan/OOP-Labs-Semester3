@@ -3,73 +3,75 @@
 #include <stdexcept>
 #include "QueueNode.h"
 
-template <class T, size_t size>
+template <class T, int maxSize>
 class Queue
 {
-	// ОФОРМИТЬ КАК ПРАКТИЧЕСКУЮ РАБОТУ №2
 private:
-	QueueNode<T>* head_ = nullptr;
-	QueueNode<T>* tail_ = nullptr;
-	size_t headIndex_ = 0;
-	size_t tailIndex_ = 0;
+	T queue_[maxSize]{};
+	int headIndex_ = 0;
+	int tailIndex_ = 0;
+	int currentSize = 0;
 
 public:
 	void Enqueue(T data)
 	{
-		if (tailIndex_ >= size - 1)
+		if (currentSize == maxSize)
 		{
-			throw std::runtime_error("Невозможно добавить элемент в полную очередь");
-		}
-
-		if (head_ == nullptr)
-		{
-			head_ = new QueueNode<T>(data, nullptr);
-			tail_ = head_;
+			throw std::runtime_error("Невозможно добавить элемент в переполненную очередь\n");
 		}
 		else
 		{
-			auto newTail = new QueueNode<T>(data, tail_);
-			tail_ = newTail;
-			tailIndex_++;
+			queue_[tailIndex_] = data;
+			tailIndex_ = (tailIndex_ + 1) % maxSize;
+			currentSize++;
 		}
 	}
 
 	T Dequeue()
 	{
-
-		if (head_ == nullptr)
+		if (currentSize == 0)
 		{
-			throw std::runtime_error("Невозможно извлечь элемент из пустой очереди");
+			throw std::runtime_error("Невозможно извлечь элемент из пустой очереди\n");
 		}
-		QueueNode<T>* newHead = tail_;
-
-		// Node before new head
-		while (newHead != nullptr && newHead->Next() != head_)
+		else
 		{
-			newHead = newHead->Next();
-		}
+			T returnData = queue_[headIndex_];
+			headIndex_ = (headIndex_ + 1) % maxSize;
+			currentSize--;
 
-		T returnData = head_->Data();
-		//head_->next_ = nullptr;
-		delete head_;
-		head_ = newHead;
-		if (head_ != nullptr)
-		{
-			head_->next_ = nullptr;
+			return returnData;
 		}
-		headIndex_++;
-
-		return returnData;
 	}
 
 	void PrintAll()
 	{
-		QueueNode<T>* next = tail_;
-		while (next != nullptr)
+		if (currentSize == 0)
 		{
-			std::cout << next->Data() << " ";
-			next = next->Next();
+			std::cout << "Очередь пуста\n";
+			return;
 		}
+
+		int currentIndex = tailIndex_ - 1;
+		
+		if (currentIndex < 0)
+		{
+			currentIndex = maxSize - 1;
+		}
+
+		while (currentIndex != headIndex_)
+		{
+			std::cout << queue_[currentIndex] << " ";
+
+			currentIndex = (currentIndex - 1) % maxSize;
+
+			if (currentIndex < 0)
+			{
+				currentIndex = maxSize - 1;
+			}
+		}
+
+		std::cout << queue_[currentIndex] << " ";
+
 		std::cout << '\n';
 	}
 };

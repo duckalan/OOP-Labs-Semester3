@@ -24,14 +24,4 @@ public:
 	{
 		return data_;
 	}
-
-	/*const QueueNode* Next() const 
-	{
-		return next_;
-	}*/
-
-	QueueNode* Next() 
-	{
-		return next_;
-	}
 };
