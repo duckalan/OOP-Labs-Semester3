@@ -1,8 +1,21 @@
-п»ї#include "String.h"
+#include "String.h"
 #include "Matrix.h"
+#include <windows.h>
+#include <fcntl.h>
+#include <io.h>
 
 int main()
 {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    String s1("Строка1");
+    String s2 = "Строка2";
+
+    std::cout << s1 << " " << s2 << '\n';
+    std::cout << s1 << " == " << s2 << " = " << (s1 == s2) << '\n';
+    std::cout << s1 << " + " << s2 << " = " << (s1 + s2) << '\n';
+
     const size_t rowsCount = 4;
     const size_t colsCount = 4;
 
@@ -23,8 +36,17 @@ int main()
     std::cout << "m1:\n";
     m1.Print();
 
+    std::cout << "!m1:\n";
+    (!m1).Print();
+
+    std::cout << "m1 % 4:\n";
+    (m1 % 4).Print();
+
     std::cout << "m2:\n";
     m2.Print();
+
+    std::cout << "m1 & m2:\n";
+    (m1 & m2).Print();
 
     std::cout << "m1 + m2:\n";
     (m1 + m2).Print();
@@ -35,6 +57,7 @@ int main()
     std::cout << "m1 / m2:\n";
     (m1 / m2).Print();
 
+    (m1 * 1.2f).Print();
     Matrix m3 = m1 * .5f - m2;
 
     std::cout << "m3:\n";
@@ -42,3 +65,17 @@ int main()
 
     system("pause");
 }
+
+/*
+Реализовать оператор ^, который посчитает определитель суммы двух матриц
+
+int x = mat1 ^ mat2;
+*/
+
+/*
+Унарный оператор !, который вовзращает транспонированную матрицу
+Бинарный оператор & который возвращает результат поэлементного умножения двух матриц
+Бинарный оператор % который возвращает поэлементный результат остатка от деления
+
+*/
+
