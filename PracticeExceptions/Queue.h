@@ -1,7 +1,6 @@
 #pragma once
 
 #include <stdexcept>
-#include "QueueNode.h"
 
 template <class T, int maxSize>
 class Queue
