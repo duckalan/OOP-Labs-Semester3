@@ -4,7 +4,7 @@
 #include "IntertownTicket.h"
 #include "InternationalTicket.h"
 
-static void PolymorphismTest(const AirlineTicket& ticket)
+void PolymorphismTest(const AirlineTicket& ticket)
 {
     ticket.PrintInfo();
     std::cout << '\n';
